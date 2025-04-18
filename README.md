@@ -1,169 +1,57 @@
-**SmartSpend**
-**Overview**
-SmartSpend is a modular Java-based expense management system designed to help users manage personal and group expenses efficiently. It combines contact and transaction management with budget tracking, summaries, and analytics. The project is divided into multiple modules to ensure clarity, scalability, and ease of maintenance.
+SmartSpend — CLI-Based Expense & Budget Manager (DSA-Driven)
 
-This README describes two main components of the system:
+SmartSpend is a command-line application for managing shared group expenses, personal budgeting, and trip settlements. Built around efficient Data Structures and Algorithms (DSA), it focuses on performance, real-world usability, and clarity in financial tracking. Designed without databases or GUI, it processes all data in-memory, ideal for both quick usage and educational demonstrations.
 
-Contact and Group Transaction Manager ()
 
-Transaction Service Module (Analytical and Budgeting Module)
+->Overview
 
-**Module 1: Contact and Group Transaction Manager**
-Purpose
-Handles contact management and enables users to perform bill splitting, manage pending payments, and record financial interactions between individuals or within groups.
+SmartSpend is split into two core modules:
 
-Key Functionalities
+- Budgeting Module – For managing individual budgets, forecasting expenses, and analyzing spending behavior
+- Split and Trip Module – For managing group expenses, tracking dues, and handling trip settlements
 
-Contact management using Binary Search Tree (add, update, delete, display)
 
-Group creation and management using Hash Map with quadratic probing
+->Budgeting Module
 
-Bill splitting with friends or groups (equal, custom, percentage-based)
+This module supports personal financial planning, category-based spending analysis, and budget forecasting.
 
-Adding transactions for pending settlements
+Key Features:
 
-Password-protected payment settlements
+- Transaction Storage: Uses a double-ended queue (Deque) to store transaction history. This supports fast insertions and retrievals from both the front and back of the list — useful for recent and historical views.
 
-Viewing past transactions with sorting options (by date, time, or amount)
+- Transaction Categorization: Utilizes a Trie to auto-categorize transactions based on description keywords, allowing space-efficient storage and prefix-based matching.
 
-Data Structures Used
+- Category-Wise Budgeting: A HashMap links each spending category with its allocated budget and total expenditure, allowing for real-time updates and comparisons.
 
-Binary Search Tree for contact storage
+- Zero-Based Budget Allocation: Implements a HashMap to allocate every unit of income to specific categories, promoting disciplined and intentional budgeting.
 
-Array-based hash map for group handling
+- Spending Prioritization: A Max Heap (priority queue) ranks categories by their spending levels, ensuring instant visibility into where money is most consumed.
 
-ArrayLists for transaction records
+- Monthly Budget Forecasting: A combination of TreeMap and a sliding window algorithm is used to analyze historical expenses and predict upcoming trends based on the last three months of data.
 
-Pending Work
+- Real-Time Tracking: A Segment Tree enables efficient computation of total expenses within any specified date range, making daily or weekly financial checks possible in logarithmic time.
 
-Trip expense management module (menu option 7)
+----------------------------------------------------------------------------------------------------------------------------
 
-**Module 2: Transaction Service Module**
-Purpose
-Provides insights, budget control, and transaction summaries for smarter expense handling. Designed to be integrated with analytical tools and user-facing dashboards.
 
-**Key Functionalities**:
+->Split and Trip Module
 
-Add transactions with description, category, amount, and date
+Key Features:
 
-Show recent transactions in tabular format
+- Contact Management: Contacts are stored using a Binary Search Tree (BST), allowing efficient insertion, deletion, and lookup by name while maintaining sorted order.
 
-Category-wise summary using bar chart-style visualization
+- Group Expense Storage: Each group is tracked using a HashMap, where each group stores an array of contacts. This allows for quick access of group during split payments.
 
-Set and track a user-defined monthly budget
+- Transaction Logging: Every financial transaction is recorded sequentially using an ArrayList, supporting fast appending and iteration.
 
-Predict future expenses using a sliding window approach (based on past 3 months)
+- Direction-Based Splits: Each transaction includes a flag indicating the direction of money flow — either “incoming” or “outgoing” — making it simple to track who owes whom and how much.
 
-Efficient range queries using Segment Tree
+- Trip Management: A directed graph implemented via an adjacency matrix represents the debt relationships among group members.
 
-Data Structures Used
+- Trip Settlement: Graph reduction techniques are applied to minimize the number of required transactions for settling debts. This is implemented using Greedy Approach for minimization of cash flow.
 
-Deque (for maintaining the latest 50 transactions)
 
-HashMap (for category totals)
+----------------------------------------------------------------------------------------------------------------------------
 
-TreeMap (for date-based tracking and prediction)
 
-Segment Tree (for future analytics)
-
-**Integration Points**
-
-Works with modules like User Management, AI Budget Advisor, Group Splitter, and Dashboard UI
-
-**Usage**
-The modules can be run as independent services or integrated into a CLI or GUI.
-
-The transaction module can be extended to include file/database-based persistence.
-
-Interactions are currently handled via terminal inputs, and the system is designed for future GUI or web-based control panels.
-
-**License**
-This project is open for academic and educational use. Contributions and extensions are welcome.
-
-
-
-**Contact, Group, and Trip Expense Manager**
-**Overview**
-This module serves as the core of SmartSpend's expense interaction system. It manages contacts, facilitates group and individual bill splits, and introduces a comprehensive trip expense management feature. Designed for both personal and collaborative expense tracking, this module offers intuitive CLI-based operations and is structured for future integration with graphical interfaces and analytical tools.
-
-**Core Functionalities**
-**Contact Management**
-Efficiently manage contact information using a Binary Search Tree. Supports operations such as:
-
-Add, update, delete, and search contacts
-
-In-order display of contact records
-
-**Group Management**
-Organize contacts into named groups using a custom hash map with quadratic probing. Features include:
-
-Group creation and contact assignment
-
-Group-level bill splitting and transaction tracking
-
-Bill Splitting
-Supports expense splitting between individuals or within groups through:
-
-Equal distribution
-
-Custom amounts
-
-Percentage-based splits
-
-Transaction Recording
-Maintains a global ledger of financial interactions with:
-
-Classification as personal or group transactions
-
-Directional tagging: incoming (receivable) or outgoing (payable)
-
-Password-protected settlement marking
-
-Historical transaction display with sort options (date, time, or amount)
-
-Trip Expense Management
-A specialized feature for handling travel-related expenses involving multiple participants:
-
-Create trips and assign contacts
-
-Log detailed expense transactions per trip
-
-Internally builds a weighted graph (adjacency matrix) to represent who owes whom
-
-Calculates and displays minimized settlements using a greedy algorithm
-
-Visual representation of the debt matrix and reduced payment paths
-
-Technical Details
-Data Structures Used
-
-Binary Search Tree (BST) – For storing and retrieving contacts efficiently
-
-Hash Map with Quadratic Probing – For group mapping and collision handling
-
-ArrayLists – For dynamic transaction storage
-
-2D Matrix and Hash Maps – For trip-level graph representation and lookups
-
-Custom Segment Tree (in complementary modules) – For analytical range queries
-
-Security
-
-Password authentication is required for confirming and settling transactions.
-
-Execution & Integration
-Can be executed directly via terminal or integrated into CLI-based workflows.
-
-Serves as a foundational backend service for group and trip expense functionalities.
-
-Future-ready for integration with GUI dashboards, persistence layers, and analytical modules.
-
-**Future Enhancements**
-Integration with file-based or database persistence mechanisms
-
-Enhanced user interface for improved accessibility
-
-Automated notification and reminder systems for unsettled transactions
-
-Real-time syncing with other SmartSpend modules (e.g., analytics, budgeting)
-  **Video link**-https://drive.google.com/drive/folders/1sWHfIlcKI_ceJPgkRvkyd4-uFY7yl24I?usp=drive_link
+VIDEO LINK-https://drive.google.com/drive/folders/1sWHfIlcKI_ceJPgkRvkyd4-uFY7yl24I?usp=drive_link
